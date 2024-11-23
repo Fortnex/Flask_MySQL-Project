@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
+    <link rel="shortcut icon" href="./images/logo.png">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+    <header class="theme-toggler-container">
+        <div id="profile-btn" style="display: none;">
+            <span class="material-icons-sharp">person</span>
+        </div>
+        <div class="theme-toggler">
+            <span class="material-icons-sharp active">light_mode</span>
+            <span class="material-icons-sharp">dark_mode</span>
+        </div>
+    </header>
+
+    <div class="form-container">
+        <form method="POST" action="/">
+            <h2>Login</h2>
+
+            <div class="box">
+                <p class="text-muted">Username</p>
+                <input type="text" id="username" name="username" placeholder="Enter your username" required>
+            </div>
+            <div class="box">
+                <p class="text-muted">Password</p>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            </div>
+
+            <div class="button">
+                <button type="submit" class="form-btn">Login</button>
+            </div>
+
+            <div class="box">
+                <a href="/sign-up">
+                    <p>Create a new account</p>
+                </a>
+                
+            </div>
+        </form>
+    </div>
+</body>
+
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</html>
