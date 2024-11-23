@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/logo.png') }}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        .pointer {
+            cursor: pointer;
+        }
+
+        /* Added styles */
+        .circle-container {
+            position: relative;
+            width: 75px;
+            height: 75px;
+            margin-top: 30px;
+        }
+
+        .circle-progress {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: conic-gradient(#4caf50 0% 86%, #ddd 86% 100%);
+        }
+
+        .circle-number {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="logo" title="University Management System">
+            <img src="{{ url_for('static', filename='images/studentlogo.jpg') }}" alt="">
+            <h2><span class="danger">D</span>ASHBOARD</h2>
+        </div>
+
+        <div class="navbar" class="pointer">
+            <a href="{{ url_for('index') }}" class="active">
+                <span class="material-icons-sharp">home</span>
+                <h3>Home</h3>
+            </a>
+
+            <a href="/academic">
+                <span class="material-icons-sharp">today</span>
+                <h3>Calendars</h3>
+            </a>
+            <a href="/exam">
+                <span class="material-icons-sharp">grid_view</span>
+                <h3>Examination</h3>
+            </a>
+            <a href="/complaints">
+                <span class="material-icons-sharp">diversity_1</span>
+                <h3>Complaints</h3>
+            </a>
+            <a href="/change-password">
+                <span class="material-icons-sharp">password</span>
+                <h3>Change Password</h3>
+            </a>
+            <a href="/coverpage">
+                <span class="material-icons-sharp">logout</span>
+                <h3>Logout</h3>
+            </a>
+        </div>
+        <div id="profile-btn">
+            <span class="material-icons-sharp">person</span>
+        </div>
+        <div class="theme-toggler">
+            <span class="material-icons-sharp active">light_mode</span>
+            <span class="material-icons-sharp">dark_mode</span>
+        </div>
+
+    </header>
+    <div class="container">
+        <aside>
+            <div class="profile">
+                <div class="top">
+                    <div class="profile-photo">
+                        <a><img src="{{ url_for('static', filename='images/rickhead.jpg') }}" alt="HTML tutorial"></a>
+                    </div>
+                    
+
+                    <div class="info">
+                        <a>Hey, <b>{{ user_details[0][:5] }}</b> </a>
+                        
+                    </div>
+                </div>
+
+                <div class="about">
+                    <h5>Course</h5>
+                    <p>{{ user_details[3] }}</p>
+                
+                    <h5>DOB</h5>
+                    <p>{{ user_details[4] }}</p> <!-- Assuming DOB is in user_details[4] -->
+                
+                    <h5>Contact</h5>
+                    <p>{{ user_details[2] }}</p> <!-- Assuming phone_number is at user_details[2] -->
+                
+                    <h5>Email</h5>
+                    <p>{{ user_details[1] }}</p> <!-- Assuming email is at user_details[1] -->
+                
+                    <h5>Address</h5>
+                    <p>{{ user_details[5] }}</p> <!-- Assuming address is at user_details[3] -->
+                </div>
+                
+            </div>
+        </aside>
+
+        <main>
+
+            <h1>Attendance</h1>
+            <div class="subjects">
+                <div class="eg">
+                    <span class="material-icons-sharp">architecture</span>
+                    <h3>Discrete Maths</h3>
+                    <h2>{{ user_details[6] }}%</h2> <!-- Assuming attendance_discrete_maths is at user_details[5] -->
+                    <div class="progress">
+                        <svg>
+                            <circle cx="38" cy="38" r="36"></circle>
+                        </svg>
+                        <div class="number">
+                            <p>{{ user_details[6] }}%</p> <!-- Percentage based on the attendance -->
+                        </div>
+                    </div>
+                    <small class="text-muted">Last 24 Hours</small>
+                </div>
+           
+                <div class="mth">
+                    <span class="material-icons-sharp">functions</span>
+                    <h3>Object Oriented Programming</h3>
+                    <h2>{{ user_details[7] }}%</h2> <!-- Assuming attendance_oop is at user_details[6] -->
+                    <div class="progress">
+                        <svg>
+                            <circle cx="38" cy="38" r="36"></circle>
+                        </svg>
+                        <div class="number">
+                            <p>{{ user_details[7]  }}%</p> <!-- Percentage based on the attendance -->
+                        </div>
+                    </div>
+                    <small class="text-muted">Last 24 Hours</small>
+                </div>
+                <div class="cs">
+                    <span class="material-icons-sharp">computer</span>
+                    <h3>User Interface Design</h3>
+                    <h2>{{ user_details[8] }}%</h2> <!-- Assuming attendance_ui_design is at user_details[7] -->
+                    <div class="progress">
+                        <svg>
+                            <circle cx="38" cy="38" r="36"></circle>
+                        </svg>
+                        <div class="number">
+                            <p>{{ user_details[8] }}%</p> <!-- Percentage based on the attendance -->
+                        </div>
+                    </div>
+                    <small class="text-muted">Last 24 Hours</small>
+                </div>
+                <div class="cg">
+                    <span class="material-icons-sharp">dns</span>
+                    <h3>Linear Algebra</h3>
+                    <h2>{{ user_details[9] }}%</h2> <!-- Assuming attendance_linear_algebra is at user_details[8] -->
+                    <div class="progress">
+                        <svg>
+                            <circle cx="38" cy="38" r="36"></circle>
+                        </svg>
+                        <div class="number">
+                            <p>{{ user_details[9] }}%</p> <!-- Percentage based on the attendance -->
+                        </div>
+                    </div>
+                    <small class="text-muted">Last 24 Hours</small>
+                </div>
+
+                
+                <div class="net">
+                    <span class="material-icons-sharp">router</span>
+                    <h3>Networking and Hardware</h3>
+                    <h2>{{ user_details[10] }}</h2> 
+                    <div class="progress">
+                        <svg>
+                            <circle cx="38" cy="38" r="36"></circle>
+                        </svg>
+                        <div class="number">
+                            <p>{{ user_details[10] }}%</p> 
+                        </div>
+                    </div>
+                    <small class="text-muted">Last 24 Hours</small>
+                </div>
+
+               
+            </div>
+
+            <br>
+            <br>
+
+            <h3><a href="/od">To apply for ODs (On Duty), click here</a></h3>
+
+            <div class="timetable" id="timetable">
+                <div>
+                    <h2>Upcoming Events</h2>
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Event Name</th>
+                            <th>Venue</th>
+                            <th>Registration Link</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>13 May 2022</td>
+                            <td>09-12 AM</td>
+                            <td>Kalanjali</td>
+                            <td>Main stage</td>
+                            <td><a href="https://forms.gle/naRQhnguXfDRgj1u6">Register</a></td>
+                        </tr>
+                        <tr>
+                            <td>16 May 2022</td>
+                            <td>6-10 PM</td>
+                            <td>Kalakurthi</td>
+                            <td>C-Block</td>
+                            <td><a href="https://forms.gle/Q4jgiCidiP3Szqf3A">Register</a></td>
+                        </tr>
+                        <tr>
+                            <td>18 May 2022</td>
+                            <td>8-10 AM</td>
+                            <td>Garbha Night</td>
+                            <td>B-Block</td>
+                            <td><a href="https://forms.gle/Q4jgiCidiP3Szqf3A">Register</a></td>
+                        </tr>
+                        <tr>
+                            <td>20 May 2022</td>
+                            <td>09-12 AM</td>
+                            <td>Dasthan</td>
+                            <td>E-Block</td>
+                            <td><a href="https://forms.gle/Q4jgiCidiP3Szqf3A">Register</a></td>
+                        </tr>
+                        <tr>
+                            <td>25 May 2022</td>
+                            <td>9-12 PM</td>
+                            <td>Cultural Fest</td>
+                            <td>Main hall</td>
+                            <td><a href="https://forms.gle/Q4jgiCidiP3Szqf3A">Register</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+              
+                  
+            </div>
+
+        </main>
+
+        <div class="right">
+            <div class="announcements">
+                <h2>Announcements</h2>
+                <div class="updates">
+                    <div class="message">
+                        <p> <b>Academic</b> End Semester Exams to Start on 15th May for All Semesters</p>
+                        <small class="text-muted">2 Minutes Ago</small>
+                    </div>
+                    <div class="message">
+                        <p> <b>Co-curricular</b> Global internship oportunity by Student organization.</p>
+                        <small class="text-muted">10 Minutes Ago</small>
+                    </div>
+                    <div class="message">
+                        <p> <b>Examination</b> Instructions for Mid Term Examination.</p>
+                        <small class="text-muted">Yesterday</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="announcements">
+                <h2>Tips Corner</h2>
+                <div class="updates">
+                    <div class="message">
+                        <marquee direction="up" height="50%">
+                            <h4>The Power of Habits</h4>
+                            <p>Developing good study habits can significantly impact your academic success. Consistency
+                                is key! Try setting a
+                                specific study routine and stick to it. Whether it’s waking up early, using a Pomodoro
+                                technique, or creating a
+                                distraction-free environment, find what works best for you.</p>
+                            <hr>
+                            <h4>Learn Beyond the Classroom</h4>
+                            <p>
+                                While textbooks and lectures are essential, don’t limit your learning to them. Explore
+                                online courses, podcasts, and
+                                YouTube channels related to your field of interest. Learning from different sources can
+                                broaden your understanding
+                                and provide fresh perspectives.
+                            </p>
+                            <hr>
+                            <h4>Networking Matters</h4>
+                            <p>
+                                Building professional relationships during your student years is crucial. Attend
+                                conferences, workshops, and career
+                                fairs. Connect with professors, industry experts, and fellow students. Networking can
+                                open doors to internships, job
+                                opportunities, and collaborations.
+                            </p>
+                            <hr>
+                            <h4>Financial Literacy</h4>
+                            <p>
+                                Understand basic financial concepts early on. Learn about budgeting, saving, investing,
+                                and managing student loans.
+                                Being financially savvy will serve you well throughout your life.
+                            </p>
+                            <hr>
+                            <h4>Health and Well-Being</h4>
+                            <p>
+                                Prioritize your physical and mental health. Regular exercise, balanced nutrition, and
+                                adequate sleep contribute to
+                                better focus and productivity. Seek support if you’re feeling overwhelmed; many
+                                universities offer counseling
+                                services.
+                            </p>
+                            <hr>
+                            <h4>Coding Skills Are Valuable</h4>
+                            <p>
+                                Even if you’re not majoring in computer science, basic coding skills are beneficial.
+                                Python, Java, or JavaScript are
+                                great languages to start with. Coding proficiency enhances problem-solving abilities and
+                                opens up career options.
+                            </p>
+                            <hr>
+                            <h4>Soft Skills Are Essential</h4>
+                            <p>
+                                Communication, teamwork, adaptability, and time management are soft skills that
+                                employers value. Engage in group
+                                projects, presentations, and extracurricular activities to hone these skills.
+                            </p>
+                            <hr>
+                            <h4>Explore Internships and Co-ops</h4>
+                            <p>
+                                Practical experience is invaluable. Seek internships or co-op programs related to your
+                                field. Real-world exposure
+                                helps bridge the gap between theory and practice.
+                            </p>
+                            <hr>
+                            <h4>Stay Curious</h4>
+                            <p>
+                                Curiosity fuels learning. Ask questions, explore topics beyond your syllabus, and read
+                                widely. Curious minds make
+                                great students!
+                            </p>
+                            <hr>
+                            <h4>Failure Is a Stepping Stone</h4>
+                            <p>
+                                Don’t fear failure; embrace it as a learning opportunity. Thomas Edison famously said,
+                                “I have not failed. I’ve just
+                                found 10,000 ways that won’t work.” Each setback brings you closer to success.</p>
+                            <hr>
+                        </marquee>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+            <!--<div class="message">
+                    <p><b>Event</b> Annual fest registrations open from next month.</p>
+                </div>
+                <div class="message">
+                    <p><b>Event</b> Kalanjali registrations open.</p>
+                </div>
+                <div class="message">
+                    <p><b>Event</b> Annual Sports meet registration open.</p>
+                </div>
+                <div class="message">
+                    <p><b>Event</b> Workshop on Robotics on 28th November.</p>
+                </div>
+                <div class="message">
+                    <p><b>Event</b> Coding Marathon registration open!</p>
+                </div> -->
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/timeTable.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+
+</html>

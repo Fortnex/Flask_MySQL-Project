@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/logo.png') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        header {
+            position: relative;
+        }
+    </style>
+
+
+</head>
+
+<body>
+
+    <header>
+        <div class="logo" title="University Management System">
+            <img src="{{ url_for('static', filename='images/studentlogo.jpg') }}" alt="">
+            <h2><span class="danger">D</span>ASHBOARD</h2>
+        </div>
+        <div class="navbar">
+            <a href="/index">
+                <span class="material-icons-sharp">home</span>
+                <h3>Home</h3>
+            </a>
+
+            <a href="/academic">
+                <span class="material-icons-sharp">today</span>
+                <h3>Calendars</h3>
+            </a>
+            <a href="/exam">
+                <span class="material-icons-sharp">grid_view</span>
+                <h3>Examination</h3>
+            </a>
+            <a href="/complaints" class="active">
+                <span class="material-icons-sharp">diversity_1</span>
+                <h3>Complaints</h3>
+            </a>
+            <a href="/change-password">
+                <span class="material-icons-sharp">password</span>
+                <h3>Change Password</h3>
+            </a>
+            <a href="/coverpage">
+                <span class="material-icons-sharp" onclick="">logout</span>
+                <h3>Logout</h3>
+            </a>
+        </div>
+        <div id="profile-btn">
+            <span class="material-icons-sharp">person</span>
+        </div>
+        <div class="theme-toggler">
+            <span class="material-icons-sharp active">light_mode</span>
+            <span class="material-icons-sharp">dark_mode</span>
+        </div>
+
+    </header>
+
+
+
+    <div class="form-container">
+
+        <form id="complaint-form" action="/complaints" method="POST">
+            <h1>Complaint Form</h1>
+            <p class="text-muted">Fill Below regarding your complaint</p>
+            <div class="box">
+                <p class="text-muted">Full Name</p>
+                <input type="text" id="name" name="full_name" required>
+            </div>
+            <div class="box">
+                <p class="text-muted">Roll Number</p>
+                <input type="text" id="rollno" name="roll_number" required>
+            </div>
+            <div class="box">
+                <p class="text-muted">Category</p>
+                <input type="radio" id="c" name="complainttype" value="Classroom" required>
+                <label for="c">Classroom</label>&nbsp;&nbsp;&nbsp;
+                <input type="radio" id="canteen" name="complainttype" value="Canteen" required>
+                <label for="canteen">Canteen</label>&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="radio" id="hostel" name="complainttype" value="Hostel" required>
+                <label for="hostel">Hostel</label>&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="radio" id="other" name="complainttype" value="Other" required>
+                <label for="other">Other</label>&nbsp;&nbsp;&nbsp;&nbsp;
+            </div>
+            <div class="box">
+                <p class="text-muted">Comments</p>
+                <textarea rows="4" name="comments" required></textarea>
+            </div>
+            <div class="button">
+                <input type="submit" class="form-btn" value="Save">
+            </div>
+            <a href="/index">
+                <p>Cancel</p>
+            </a>
+        </form>
+    </div>
+
+
+    <script>
+        function formSubmit() {
+            console.log("formSubmit function called");
+
+            var nameInput = document.getElementById('name');
+            var rollnoInput = document.getElementById('rollno');
+            var name = nameInput.value;
+            var rollno = rollnoInput.value;
+            var nameRegex = /^[A-Za-z\s]+$/;
+            var rollnoRegex = /^[0-9]+$/;
+
+            console.log("Name: ", name);
+            console.log("Roll No: ", rollno);
+
+            if (!nameRegex.test(name)) {
+                alert("Please enter only letters in the name field.");
+                nameInput.focus();
+                return false;
+            }
+
+            if (!rollnoRegex.test(rollno)) {
+                alert("Please enter only numbers in the roll number field.");
+                rollnoInput.focus();
+                return false;
+            }
+
+            else {
+                alert("Your Complaint has been submitted");
+                window.location.href = 'index.html';
+                return true;
+            }
+        }
+    </script>
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+
+</html>
